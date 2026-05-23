@@ -45,7 +45,7 @@ htmlcov/
 .cache
 nosetests.xml
 coverage.xml
-*.cover
+*.coverA
 *.py.cover
 .hypothesis/
 .pytest_cache/
@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# ── Project Specific ──────────────────────────────────────────────────────────
+.env.dev
+.env.prod
+.env.local
+.DS_Store
