@@ -1,0 +1,17 @@
+# Dev Overrides
+
+services:
+  api:
+    # restarts the server when code changes
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+
+    # mount local code into container
+    volumes:
+      - ./app:/app/app
+
+  db:
+    ports:
+      - "5432:5432"
+
