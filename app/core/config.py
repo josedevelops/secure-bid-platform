@@ -9,14 +9,14 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
     DATABASE_URL: str
     SECRET_KEY: str
-    ALGORITH: str = "HS256"
+    ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     ALLOWED_ORIGINS: list[str] = ["http://localhost:3000"]
 
     class Config:
         env_file = ".env"
 
-        case_senseitive = True
+        case_sensitive = True
 
 
 @lru_cache()
