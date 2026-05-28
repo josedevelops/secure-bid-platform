@@ -91,11 +91,11 @@ class Auction(Base):
         Enum(AuctionStatus), nullable=False, default=AuctionStatus.ACTIVE
     )
     user_id: Mapped[int] = mapped_column(
-        ForeignKey("user_id"),
+        ForeignKey("users.id"),
         nullable=False,
     )
     producty_type_id: Mapped[int] = mapped_column(
-        ForeignKey("producty_type_id"), nullable=False
+        ForeignKey("product_types.id"), nullable=False
     )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
@@ -126,7 +126,7 @@ class Bid(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     price: Mapped[float] = mapped_column(Float, nullable=False)
     auction_id: Mapped[int] = mapped_column(ForeignKey("auctions.id"), nullable=False)
-    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         default=lambda: datetime.now(timezone.utc),

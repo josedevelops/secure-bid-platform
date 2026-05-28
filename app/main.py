@@ -34,7 +34,7 @@ def create_app() -> FastAPI:
     )
 
     # CORS - control which frontend origins can call this API
-    app.add.middleware(
+    app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.ALLOWED_ORIGINS,
         allow_credentials=True,

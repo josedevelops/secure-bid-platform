@@ -11,7 +11,7 @@ from app.schemas.profile import ProfileResponse
 from app.db.models import User
 
 
-router = APIRouter(prefilx="/admin", tags=["admin"])
+router = APIRouter(prefix="/admin", tags=["admin"])
 
 
 @router.get("/users", response_model=list[ProfileResponse])
