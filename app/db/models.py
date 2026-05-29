@@ -75,7 +75,7 @@ class ProductType(Base):
     name: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
     description: Mapped[str] = mapped_column(Text, nullable=True)
     auctions: Mapped[list["Auction"]] = relationship(
-        "Auction", back_populates="product_types"
+        "Auction", back_populates="product_type"
     )
 
 
