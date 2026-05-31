@@ -14,6 +14,9 @@ from app.api.v1.bid import router as bid_router
 from app.api.v1.profile import router as profile_router
 from app.api.v1.admin import router as admin_router
 from app.api.v1.product_types import router as product_types_router
+from fastapi.exceptions import RequestValidationError
+from fastapi import HTTPException
+from app.core.errors import BaseAppException, app_exeption_handler, validation_exception_handler, http_exception_handler
 
 
 @asynccontextmanager
@@ -42,6 +45,12 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    # register exception handlers — these catch all custom exceptions app-wide
+    # and return consistent JSON error shapes instead of raw FastAPI defaults
+    app.add_exception_handler(BaseAppException, app_exeption_handler)
+    app.add_exception_handler(RequestValidationError, validation_exception_handler)
+    app.add_exception_handler(HTTPException, http_exception_handler)
 
     # register all routers with the /api/v1 prefix
     app.include_router(health_router)
