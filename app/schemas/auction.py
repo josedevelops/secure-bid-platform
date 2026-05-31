@@ -8,7 +8,7 @@ from app.db.models import AuctionStatus
 # used when creating a new auction
 class AuctionCreate(BaseModel):
     name: str = Field(min_length=3, max_length=255)
-    detials: Optional[str] = None
+    details: Optional[str] = None
     min_price: float = Field(gt=0)
     max_price: float = Field(gt=0)
     buyout_price: Optional[float] = None

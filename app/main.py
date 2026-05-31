@@ -13,6 +13,7 @@ from app.api.v1.auction import router as auction_router
 from app.api.v1.bid import router as bid_router
 from app.api.v1.profile import router as profile_router
 from app.api.v1.admin import router as admin_router
+from app.api.v1.product_types import router as product_types_router
 
 
 @asynccontextmanager
@@ -49,6 +50,7 @@ def create_app() -> FastAPI:
     app.include_router(bid_router, prefix="/api/v1")
     app.include_router(profile_router, prefix="/api/v1")
     app.include_router(admin_router, prefix="/api/v1")
+    app.include_router(product_types_router, prefix="/api/v1")
 
     # attach prometheus metrics endpoints
     setup_metrics(app)
