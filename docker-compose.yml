@@ -7,15 +7,12 @@ services:
       dockerfile: Dockerfile
     env_file:
       - .env
-    # mount local code into container so changes reflect without rebuild
-    # this means tests, new files, and edits are visible immediately
-    volumes:
-      - .:/app
     depends_on:
       db:
         condition: service_healthy
     networks:
       - securebid_network
+
   # PostgreSQL
   db:
     container_name: securebid_db
@@ -34,6 +31,7 @@ services:
 # Volumes
 volumes:
   postgres_data:
+
 # Networks
 networks:
   securebid_network:

@@ -1,0 +1,25 @@
+# prometheus.yml — scrape configuration for secure-bid-platform
+# prometheus pulls metrics from the FastAPI app on a schedule
+# the /metrics endpoint is exposed by prometheus-fastapi-instrumentator
+
+global:
+  # how often prometheus scrapes each target
+  scrape_interval: 15s
+  # how long prometheus waits for a scrape to complete
+  scrape_timeout: 10s
+  # how often prometheus evaluates alerting rules
+  evaluation_interval: 15s
+
+scrape_configs:
+  # scrape the FastAPI app metrics
+  - job_name: secure-bid-platform
+    # static_configs means we hardcode the target — no service discovery needed
+    # for a single-service app this is the right approach
+    static_configs:
+      - targets:
+          # 'api' resolves to the FastAPI container via Docker's internal DNS
+          - api:8000
+    # metrics_path defaults to /metrics — explicit here for clarity
+    metrics_path: /metrics
+    # scrape every 15 seconds — matches global interval
+    scrape_interval: 15s

@@ -223,3 +223,6 @@ __marimo__/
 .env.prod
 .env.local
 .DS_Store
+
+# docker override is local dev only — each developer has their own
+docker-compose.override.yml

@@ -1,17 +1,18 @@
-# Dev Overrides
+# docker-compose.override.yml — dev overrides
+# automatically merged with docker-compose.yml when you run: docker compose up
+# never used in production — this file stays on your local machine only
 
 services:
   api:
-    # restarts the server when code changes
+    # hot reload — uvicorn watches for file changes and restarts automatically
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    # and new files are immediately visible without rebuilding
+    volumes:
+      - .:/app
     ports:
       - "8000:8000"
 
-    # mount local code into container
-    volumes:
-      - ./app:/app/app
-
   db:
+    # expose postgres port locally so you can connect with psql or a GUI
     ports:
       - "5432:5432"
-
