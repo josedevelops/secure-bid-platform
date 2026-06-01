@@ -1,13 +1,14 @@
 # product type routes — CRUD endpoints for auction categories
 # create is admin-only — we don't want random users polluting the category list
 # list and get are public — buyers need to browse categories before placing bids
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.base import get_db
 from app.api.dependencies import get_current_user
 from app.repository.product_type import ProductTypeRepository
 from app.schemas.product_type import ProductTypeCreate, ProductTypeResponse
 from app.db.models import User, MemberType
+from app.core.errors import NotFoundError, AdminRequiredError
 
 router = APIRouter(prefix="/product-types", tags=["product-types"])
 
@@ -28,7 +29,7 @@ async def get_product_type(
     repo = ProductTypeRepository(db)
     product_type = await repo.get_by_id(product_type_id)
     if not product_type:
-        raise HTTPException(status_code=404, detail="Product type not found")
+        raise NotFoundError("Product type not found")
     return product_type
 
 
@@ -39,11 +40,7 @@ async def create_product_type(
     current_user: User = Depends(get_current_user),
 ):
     # admin-only — product types are platform-level data, not user-generated content
-    # a seller creating arbitrary categories would pollute the auction system
     if current_user.member_type != MemberType.ADMIN:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Admin account required"
-        )
+        raise AdminRequiredError()
     repo = ProductTypeRepository(db)
     return await repo.create(**body.model_dump())

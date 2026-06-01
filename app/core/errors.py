@@ -47,13 +47,13 @@ class InactiveAccountError(BaseAppException):
 class ForbiddenError(BaseAppException):
     # raised when a user is authenticated but not authorized for this action
     def __init__(self, message: str = "Not Authorized"):
-        super().__init__(status.HTTP_403_FORBIDDEN, "FOREBIDDEN", message)
+        super().__init__(status.HTTP_403_FORBIDDEN, "FORBIDDEN", message)
 
 
 class SellerRequiredError(BaseAppException):
     # raised when a non-seller tries to create an auction
     def __init__(self, message: str = "Seller account required"):
-        super().__init__(status.HTTP_403_FORBIDDEN, "SELER_REQUIRED", message)
+        super().__init__(status.HTTP_403_FORBIDDEN, "SELLER_REQUIRED", message)
 
 
 class AdminRequiredError(BaseAppException):
