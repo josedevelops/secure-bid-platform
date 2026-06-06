@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: securebid-config
+  namespace: securebid
+  labels:
+    app.kubernetes.io/name: secure-bid-platform
+    app.kubernetes.io/managed-by: kubectl
+
+data:
+  APP_NAME: "Secure Bid Platform"
+  APP_VERSION: "1.0.0"
+  ENVIRONMENT: "production"
+  DEBUG: "False"
+  ALGORITHM: "HS256"
+  ACCESS_TOKEN_EXPIRE_MINUTES: "30"
+  ALLOWED_ORIGINS: '["http://localhost:3000"]'
+
+

@@ -226,3 +226,4 @@ __marimo__/
 
 # docker override is local dev only — each developer has their own
 docker-compose.override.yml
+k8s/secret.yaml

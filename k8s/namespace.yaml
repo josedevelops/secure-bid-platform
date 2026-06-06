@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: securebid
+  labels:
+    app.kubernetes.io/name: secure-bid-platform
+    app.kubernetes.io/managed-by: kubectl
+    environment: production
+
+
