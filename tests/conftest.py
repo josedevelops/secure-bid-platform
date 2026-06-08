@@ -10,7 +10,9 @@ from app.main import app
 from app.db.base import Base, get_db
 
 # host is 'db' because inside Docker, services talk by service name not localhost
-TEST_DATABASE_URL = "postgresql+asyncpg://appuser:changeme@db:5432/securebid_test"
+import os
+TEST_DB_HOST = os.getenv("TEST_DB_HOST", "db")
+TEST_DATABASE_URL = f"postgresql+asyncpg://appuser:changeme@{TEST_DB_HOST}:5432/securebid_test"
 
 
 @pytest_asyncio.fixture

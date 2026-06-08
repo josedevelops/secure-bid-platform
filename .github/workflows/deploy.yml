@@ -57,6 +57,7 @@ jobs:
           ALGORITHM=HS256
           ACCESS_TOKEN_EXPIRE_MINUTES=30
           ALLOWED_ORIGINS=["http://localhost:3000"]
+          TEST_DB_HOST=localhost
           POSTGRES_USER=appuser
           POSTGRES_PASSWORD=changeme
           POSTGRES_DB=securebid
