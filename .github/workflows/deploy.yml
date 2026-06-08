@@ -24,7 +24,7 @@ jobs:
         env:
           POSTGRES_USER: appuser
           POSTGRES_PASSWORD: changeme
-          POSTGRES_DB: securebid_test
+          POSTGRES_DB: securebid
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -61,6 +61,9 @@ jobs:
           POSTGRES_PASSWORD=changeme
           POSTGRES_DB=securebid
           EOF
+
+      - name: Create test database
+        run: psql postgresql://appuser:changeme@localhost:5432/securebid -c "CREATE DATABASE securebid_test;"
 
       - name: Run migrations
         run: alembic upgrade head
