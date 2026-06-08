@@ -78,20 +78,20 @@ class AuctionNotActiveError(BaseAppException):
     # raised when someone tries to bid on a closed or cancelled auction
     def __init__(self, message: str = "Auction is not active"):
         super().__init__(
-            status.HTTP_422_UNPROCESSABLE_ENTITY, "AUCTION_NOT_ACTIVE", message
+            status.HTTP_422_UNPROCESSABLE_CONTENT, "AUCTION_NOT_ACTIVE", message
         )
 
 
 class SelfBidError(BaseAppException):
     # raised when a seller tries to bid on their own auction
     def __init__(self, message: str = "Cannot bid on your own auction"):
-        super().__init__(status.HTTP_422_UNPROCESSABLE_ENTITY, "SELF_BID", message)
+        super().__init__(status.HTTP_422_UNPROCESSABLE_CONTENT, "SELF_BID", message)
 
 
-class BidToLowError(BaseAppException):
+class BidTooLowError(BaseAppException):
     # raised when a bid is below the minimum price
     def __init__(self, message: str = "Bid is below minimum price"):
-        super().__init__(status.HTTP_422_UNPROCESSABLE_ENTITY, "BID_TOO_LOW", message)
+        super().__init__(status.HTTP_422_UNPROCESSABLE_CONTENT, "BID_TOO_LOW", message)
 
 
 # --- Exception handlers ---
@@ -122,7 +122,7 @@ async def validation_exception_handler(
         {"field": str(err["loc"][-1]), "message": err["msg"]} for err in errors
     ]
     return JSONResponse(
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
         content={"detail": {"code": "VALIDATION_ERROR", "errors": formatted}},
     )
 

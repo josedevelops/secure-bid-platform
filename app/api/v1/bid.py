@@ -9,7 +9,7 @@ from app.repository.bid import BidRepository
 from app.repository.auction import AuctionRepository
 from app.schemas.bid import BidCreate, BidResponse
 from app.db.models import User, AuctionStatus
-from app.core.errors import NotFoundError, AuctionNotActiveError, SelfBidError, BidToLowError
+from app.core.errors import NotFoundError, AuctionNotActiveError, SelfBidError, BidTooLowError
 
 router = APIRouter(prefix="/bids", tags=["bids"])
 
@@ -41,7 +41,7 @@ async def place_bid(
     bid_repo = BidRepository(db)
     highest = await bid_repo.get_highest_bid(body.auction_id)
     if highest and body.price <= highest.price:
-        raise BidToLowError(f"Bid must exceed current highest: {highest.price}")
+        raise BidTooLowError(f"Bid must exceed current highest: {highest.price}")
     return await bid_repo.create(
         user_id=current_user.id, auction_id=body.auction_id, price=body.price
     )
