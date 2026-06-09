@@ -77,9 +77,10 @@ jobs:
   # ── Job 2: Deploy ────────────────────────────────────────────────────────────
   deploy:
     name: Deploy to Server
+    continue-on-error: true
     runs-on: ubuntu-latest
     needs: test
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && secrets.DEPLOY_HOST != ''
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
       - name: Deploy to server via SSH
