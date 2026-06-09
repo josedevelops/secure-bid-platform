@@ -70,6 +70,8 @@ jobs:
         run: alembic upgrade head
 
       - name: Run tests
+        env:
+          TEST_DB_HOST: localhost
         run: pytest tests/ -v
 
   # ── Job 2: Deploy ────────────────────────────────────────────────────────────
